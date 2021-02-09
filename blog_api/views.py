@@ -29,12 +29,8 @@ class PostUserWritePermission(BasePermission):
 
 class PostList(generics.ListAPIView):
     pagination_class = PagListView
-    permission_classes = [IsAuthenticated]
     serializer_class = PostSerializer
-
-    def get_queryset(self):
-        user = self.request.user
-        return Post.objects.filter(author=user)
+    queryset = Post.objects.all()
 
 
 class PostDetail(generics.RetrieveAPIView):

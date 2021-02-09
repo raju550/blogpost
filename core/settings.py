@@ -23,7 +23,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '#z00qay+yntx08s9c-kpvpmj7y0xq5+ij1t&(bdq*w%!q0l@dm'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
 
 ALLOWED_HOSTS = ['rajuapi.herokuapp.com','127.0.0.1']
 
@@ -40,10 +39,12 @@ INSTALLED_APPS = [
     'blog_api',
     'rest_framework',
     'django_filters',
-    'rest_framework.authtoken'
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.BrokenLinkEmailsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -53,8 +54,12 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
+CORS_ORIGIN_ALLOW_ALL = True
 ROOT_URLCONF = 'core.urls'
+# CORS_ORIGIN_WHITELIST = [
+#     'http://localhost:3000',
+# ]
+
 
 TEMPLATES = [
     {
@@ -83,6 +88,8 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -121,19 +128,13 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR,'static/media')
+MEDIA_URL = '/images/'
+MEDIA_ROOT = os.path.join(BASE_DIR,'static/images')
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'media'),
+    os.path.join(BASE_DIR, 'static'),
 )
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.BasicAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-        # 'rest_framework.authentication.TokenAuthentication'
-        # 'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ],
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',
     ],
