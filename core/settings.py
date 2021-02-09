@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '#z00qay+yntx08s9c-kpvpmj7y0xq5+ij1t&(bdq*w%!q0l@dm'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-
+DEBUG = False
 ALLOWED_HOSTS = ['rajuapi.herokuapp.com','127.0.0.1']
 
 # Application definition
@@ -54,11 +54,11 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-CORS_ORIGIN_ALLOW_ALL = True
+# CORS_ORIGIN_ALLOW_ALL = True
 ROOT_URLCONF = 'core.urls'
-# CORS_ORIGIN_WHITELIST = [
-#     'http://localhost:3000',
-# ]
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:3000',
+]
 
 
 TEMPLATES = [
